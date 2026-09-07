@@ -47,7 +47,7 @@ export default function Navbar() {
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="navbar-brand">
                 <Link className="nav-link" to="/app">
-                    <img src="/images/gifts.png" ></img>
+                    <img src={process.env.PUBLIC_URL + '/images/gifts.png'} ></img>
                     <label>GiftLink</label>
                 </Link>       
             </div>
