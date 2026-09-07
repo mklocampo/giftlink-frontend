@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/giftlink-frontend/static/css/main.41385727.css",
-    "main.js": "/giftlink-frontend/static/js/main.c79e9b83.js",
+    "main.js": "/giftlink-frontend/static/js/main.bc479ed9.js",
     "index.html": "/giftlink-frontend/index.html",
     "main.41385727.css.map": "/giftlink-frontend/static/css/main.41385727.css.map",
-    "main.c79e9b83.js.map": "/giftlink-frontend/static/js/main.c79e9b83.js.map"
+    "main.bc479ed9.js.map": "/giftlink-frontend/static/js/main.bc479ed9.js.map"
   },
   "entrypoints": [
     "static/css/main.41385727.css",
-    "static/js/main.c79e9b83.js"
+    "static/js/main.bc479ed9.js"
   ]
 }
