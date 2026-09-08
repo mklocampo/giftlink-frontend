@@ -15,7 +15,7 @@ function DetailsPage() {
         if (!authenticationToken) {
 			// Task 1: Check for authentication and redirect
             //{{insert code here}}
-            navigate('/app/login');
+            navigate('/login');
         }
 
         // get the gift to be rendered on the details page
@@ -93,29 +93,29 @@ return (
                         {gift.image ? (
 			                // Task 5: Display gift image
 			                /*insert code here*/
-                            <img src={gift.image} alt={gift.name} className="product-image-large" />
+                            <img src={process.env.PUBLIC_URL + gift.image} alt={gift.name} className="product-image-large" />
                         ) : (
                             <div className="no-image-available-large">No Image Available</div>
                         )}
                     </div>
                     {/*Task 6: Display gift details */}
-                    	<p><strong>Category:</strong> 
+                    	<p><strong>Category: </strong> 
 				        {/*insert code here  */}
                             {gift.category} 
 			            </p>
-                    	<p><strong>Condition:</strong> 
+                    	<p><strong>Condition: </strong> 
 				        {/* insert code here  */}
                             {gift.condition}
                     	</p>
-                    	<p><strong>Date Added:</strong> 
+                    	<p><strong>Date Added: </strong> 
 				        {/* insert code here  */}
-                            {gift.dateAdded}
+                            {gift.date_added || gift.dateAdded}
                         </p>
-                    	<p><strong>Age (Years):</strong> 
+                    	<p><strong>Age (Years): </strong> 
 				        {/* insert code here  */}
-                            {gift.age}
+                            {gift.age_years || gift.age}
                     	</p>
-                    	<p><strong>Description:</strong> 
+                    	<p><strong>Description: </strong> 
 				        {/* insert code here  */}
                             {gift.description}
                     	</p>
@@ -123,7 +123,7 @@ return (
             </div>
             <div className="comments-section mt-4">
                 <h3 className="mb-3">Comments</h3>
-				{/* Task 7: Render comments section by using the map function to go through all the comments /*}
+				{/* Task 7: Render comments section by using the map function to go through all the comments */}
 				{/* insert code here  => (*/}
                 {comments.map((comment, index) => (
                     <div key={index} className="card mb-3">

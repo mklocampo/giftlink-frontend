@@ -17,7 +17,7 @@ const Profile = () => {
     useEffect(() => {
         const authtoken = sessionStorage.getItem("auth-token");
         if (!authtoken) {
-            navigate("/app/login");
+            navigate("/login");
         } else {
             fetchUserProfile();
         }
@@ -61,7 +61,7 @@ const Profile = () => {
             const email = sessionStorage.getItem("email");
 
             if (!authtoken || !email) {
-                navigate("/app/login");
+                navigate("/login");
                 return;
             }
 
@@ -118,7 +118,7 @@ const Profile = () => {
                 <input type="email" name="email" value={userDetails.email} disabled />
             </label>
             <label> Name
-                <input type="text" name="name" value={updatedDetails.name} onChange={handleInputChange} />
+                <input type="text" name="name" value={updatedDetails.name || ''} onChange={handleInputChange} />
             </label>
             <button type="submit">Save</button>
         </form>

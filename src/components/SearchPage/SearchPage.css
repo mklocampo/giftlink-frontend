@@ -47,6 +47,19 @@
     border-radius: 0.25rem;
 }
 
+.loading-search{
+    color: #0056b3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 10%;
+}
+.loading-search img{
+    width: 200px;
+    height: 200px;
+}
+
 /* Additional placeholders for tasks 6 to 10 */
 
 .searchContainer{

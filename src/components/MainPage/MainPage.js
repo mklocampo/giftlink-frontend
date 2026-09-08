@@ -6,6 +6,8 @@ function MainPage() {
     const [gifts, setGifts] = useState([]);
     const navigate = useNavigate();
 
+    const [loading, setLoading] = useState(true);
+
     useEffect(() => {
         // Task 1: Write async fetch operation
         // Write your code below this line
@@ -13,15 +15,17 @@ function MainPage() {
         const fetchGifts = async () => {
             try {
                 let url = `${urlConfig.backendUrl}/api/gifts`
-                const response = await fetch(url);
+                const response = await fetch(url);             
                 if (!response.ok) {
                     //something went wrong
                     throw new Error(`HTTP error; ${response.status}`)
                 }
                 const data = await response.json();
                 setGifts(data);
+                setLoading(false);
             } catch (error) {
                 console.log('Fetch error: ' + error.message);
+                setLoading(false);
             }
         };      
         fetchGifts();		        
@@ -30,13 +34,14 @@ function MainPage() {
     // Task 2: Navigate to details page
     const goToDetailsPage = (productId) => {
         // Write your code below this line
-        navigate(`/app/product/${productId}`);
+        navigate(`/product/${productId}`);
       };
 
     // Task 3: Format timestamp
     const formatDate = (timestamp) => {
         // Write your code below this line
-        const date = new Date(timestamp * 1000);
+        const isSeconds = String(timestamp).length < 13;
+        const date = new Date(isSeconds ? timestamp * 1000 : timestamp);
         return date.toLocaleDateString('default', { month: 'long', day: 'numeric', year: 'numeric' });
       };
 
@@ -46,7 +51,13 @@ function MainPage() {
 
     return (
         <div className="container">
-            <div className="row">
+            {loading ? 
+                (
+                    <div className="loading-gifts">
+                        <img src={process.env.PUBLIC_URL + '/static/spinner.gif'} ></img>
+		            </div>                 
+                ) : (
+                    <div className="row">
                 {gifts.map((gift) => (
                     <div key={gift.id} className="col-md-3 mb-3">
                         <div className="card product-card">
@@ -55,7 +66,7 @@ function MainPage() {
                             {/* // Write your code below this line */}
                             <div className="image-placeholder">
                                 {gift.image ? (
-                                    <img src={gift.image} alt={gift.name} className="card-img-top" />
+                                    <img src={process.env.PUBLIC_URL + gift.image} alt={gift.name} className="card-img-top" />
                                 ) : (
                                     <div className="no-image-available">No Image Available</div>
                                 )}
@@ -86,7 +97,11 @@ function MainPage() {
                         </div>
                     </div>
                 ))}
-            </div>
+            </div>           
+                )
+            }
+            
+
         </div>
     );
 }

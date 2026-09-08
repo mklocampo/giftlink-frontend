@@ -29,8 +29,10 @@ function RegisterPage() {
 
 
     // insert code here to create handleRegister function and include console.log
-    const handleRegister = async () => {
+    const handleRegister = async (e) => {
+        e.preventDefault();
 	    console.log("Register invoked")
+        setShowerr('');
         const response = await fetch(`${urlConfig.backendUrl}/api/auth/register`, {
             //{{Insert code here}} //Task 6: Set method
             method: 'POST',
@@ -64,7 +66,7 @@ function RegisterPage() {
             setIsLoggedIn(true);
            
             // Task 4: Navigate to the MainPage after logging in.
-            navigate('/app');
+            navigate('/');
         }
         // Task 5: Set an error message if the registration fails.     
         if (json.error) {
@@ -81,35 +83,36 @@ function RegisterPage() {
                         <h2 className="text-center mb-4 font-weight-bold">Register</h2>
 
                         {/* insert code here to create input elements for all the variables - firstName, lastName, email, password */}
-                        <div className="mb-4">
-                            <label htmlFor="firstName" className="form label"> FirstName</label>
-                            <input id="firstName" type="text" className="form-control" placeholder="Enter your firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
-                        </div>  
+                        <form onSubmit={handleRegister}>
+                            <div className="mb-4">
+                                <label htmlFor="firstName" className="form label"> FirstName</label>
+                                <input id="firstName" type="text" className="form-control" placeholder="Enter your firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
+                            </div>  
                 
-                        <div className="mb-3">
-                            <label htmlFor="lastName" className="form-label">LastName</label>
-                            <input id="lastName" type="text" className="form-control" placeholder="Enter your lastName" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
-                        </div>
+                            <div className="mb-3">
+                                <label htmlFor="lastName" className="form-label">LastName</label>
+                                <input id="lastName" type="text" className="form-control" placeholder="Enter your lastName" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
+                            </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="email" className="form-label">Email</label>
-                            <input id="email" type="text" className="form-control" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                            {/* Task 6: Display error message to enduser.*/}
-                            <div className="text-danger">{showerr}</div>
-                        </div>
+                            <div className="mb-3">
+                                <label htmlFor="email" className="form-label">Email</label>
+                                <input id="email" type="text" className="form-control" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                                {/* Task 6: Display error message to enduser.*/}
+                                <div className="text-danger">{showerr}</div>
+                            </div>
 
-                        <div className="mb-4">
-                            <label htmlFor="password" className="form-label">Password</label>
-                            <input id="password" type="password" className="form-control" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-                        </div>
+                            <div className="mb-4">
+                                <label htmlFor="password" className="form-label">Password</label>
+                                <input id="password" type="password" className="form-control" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                            </div>
 
-                        {/* insert code here to create a button that performs the `handleRegister` function on click */}
-                        <button className="btn btn-primary w-100 mb-3" onClick={handleRegister}>Register</button>
-                        <p className="mt-4 text-center">
-                            Already a member? <a href="/app/login" className="text-primary">Login</a>
-                        </p>
-                        
-                     </div>
+                            {/* insert code here to create a button that performs the `handleRegister` function on click */}
+                            <button type="submit" className="btn btn-primary w-100 mb-3">Register</button>
+                            <p className="mt-4 text-center">
+                           
+                            </p>
+                        </form>   
+                    </div>
                 </div>
             </div>
         </div>

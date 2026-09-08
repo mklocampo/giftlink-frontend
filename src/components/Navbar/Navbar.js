@@ -1,6 +1,6 @@
 import React, { useEffect }  from 'react';
 
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
 //import {urlConfig} from '../../config';
 import { useAppContext } from '../../context/AuthContext';
 
@@ -29,45 +29,35 @@ export default function Navbar() {
         sessionStorage.removeItem('name');
         sessionStorage.removeItem('email');
         setIsLoggedIn(false);
-        navigate(`/app`);
+        navigate(`/`);
     }
 
-    //Added for navigation display
-    const currentUrl = window.location.href;
-    const menuLinks = document.querySelectorAll('.nav-item a');
-    menuLinks.forEach(link => {
-        if (link.href === currentUrl) {
-            link.classList.add('active');
-        }else{
-            link.classList.remove('active');
-        }
-    });
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="navbar-brand">
-                <Link className="nav-link" to="/app">
+                <a className="nav-link" href={`${process.env.PUBLIC_URL}/`}>
                     <img src={process.env.PUBLIC_URL + '/images/gifts.png'} ></img>
                     <label>GiftLink</label>
-                </Link>       
+                </a>       
             </div>
             <div className="collapse navbar-collapse" id="navbarNav">
                 <ul className="navbar-nav">
                     {/* Task 1: Add links to Home and Gifts below*/}
                     <li className="nav-item">
-                        <a className="nav-link" href="/home.html">Home</a> {/* Link to home.html */}
+                        <a className="nav-link" href={`${process.env.PUBLIC_URL}/home.html`}>Home</a>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link active" to="/app">Gifts</Link>
+                        <NavLink className="nav-link" to="/">Gifts</NavLink>
                     </li>
                     <li className="nav-item">
-	                    <Link className="nav-link" to="/app/search">Search</Link>
+	                    <NavLink className="nav-link" to="/search">Search</NavLink>
                     </li>
                     <ul className="navbar-nav ml-auto">
                         {isLoggedIn ? (
                             <>
                                 <li className="nav-item">  
-                                    <Link className="nav-link profile" to="/app/profile">Welcome, {userName}</Link>
+                                    <NavLink className="nav-link profile" to="/profile">Welcome, {userName}</NavLink>
                                 </li>
                                 <li className="nav-item">
                                     <button className="nav-link" onClick={handleLogout}>Logout</button>
@@ -76,10 +66,10 @@ export default function Navbar() {
                         ) : (
                             <>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/app/login">Login</Link>
+                                    <NavLink className="nav-link" to="/login">Login</NavLink>
                                 </li>
                                 <li className="nav-item">
-                                    <Link className="nav-link" to="/app/register">Register</Link>
+                                    <NavLink className="nav-link" to="/register">Register</NavLink>
                                 </li>
                             </>
                         )

@@ -11,6 +11,8 @@ function SearchPage() {
     const [ageRange, setAgeRange] = useState(6); // Initialize with minimum value
     const [searchResults, setSearchResults] = useState([]);
 
+    const [loading, setLoading] = useState(true);
+
     const categories = ['Living', 'Bedroom', 'Bathroom', 'Kitchen', 'Office'];
     const conditions = ['New', 'Like New', 'Older'];
     
@@ -21,14 +23,17 @@ function SearchPage() {
                 let url = `${urlConfig.backendUrl}/api/gifts`
                 console.log(url)
                 const response = await fetch(url);
+               
                 if (!response.ok) {
                     //something went wrong
                     throw new Error(`HTTP error; ${response.status}`)
                 }
-                const data = await response.json();
+                const data = await response.json(); 
                 setSearchResults(data);
+                setLoading(false);
             } catch (error) {
                 console.log('Fetch error: ' + error.message);
+                setLoading(false);
             }
         };
 
@@ -63,7 +68,7 @@ function SearchPage() {
 
     const goToDetailsPage = (productId) => {
         // Task 6. Enable navigation to the details page of a selected gift.
-        navigate(`/app/product/${productId}`);
+        navigate(`/product/${productId}`);
     };
 
     return (
@@ -113,7 +118,7 @@ function SearchPage() {
 		                searchResults.map(product => (
 		                <div key={product.id} className="card card-search mb-3">
 			                {/* Check if product has an image and display it */}
-			                <img src={product.image} alt={product.name} className="card-img-top" />
+			                <img src={process.env.PUBLIC_URL + product.image} className="card-img-top" />
 			                <div className="card-body">
 				                <h5 className="card-title">{product.name}</h5>
 				                <p className="card-text">{product.description.slice(0, 100)}...</p>
@@ -124,9 +129,15 @@ function SearchPage() {
 		                </div>
 		                ))
 		                ) : (
-		                <div className="alert alert-info" role="alert">
-			                No products found. Please revise your filters.
-		                </div>
+                            (loading ? (
+                                 <div className="loading-search">
+                                    <img src={process.env.PUBLIC_URL + '/static/spinner.gif'} ></img>
+		                        </div>
+                            ) : (
+                                <div className="alert alert-info" role="alert">
+			                        No products found. Please revise your filters.
+		                        </div>
+                            ))  
 		                )}
 	                </div>
             
