@@ -1,4 +1,9 @@
-/* Style for image placeholder */
+
+.container-detailsPage{
+    margin-top: 80px !important;
+    padding: 0 40px;
+}
+
 .image-placeholder-large {
     /* Task 1 styling */
     /*{{insert code here}}*/

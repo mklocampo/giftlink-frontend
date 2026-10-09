@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react';
 import './LoginPage.css';
 
 //{{Insert code here}} //Task 1: Import urlConfig from `giftlink-frontend/src/config.js`
-import {urlConfig} from '../../config';
+import { urlConfig } from '../../config';
 
 //{{Insert code here}} //Task 2: Import useAppContext `giftlink-frontend/context/AuthContext.js`
-import { useAppContext  } from '../../context/AuthContext';
+import { useAppContext } from '../../context/AuthContext';
 
 //{{Insert code here}} //Task 3: Import useNavigate from `react-router-dom` to handle navigation after successful registration.
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +16,7 @@ function LoginPage() {
     //insert code here to create useState hook variables for email, password
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
+
     //{{Insert code here}} //Task 4: Include a state for incorrect password.
     const [incorrect, setIncorrect] = useState('');
 
@@ -24,14 +24,14 @@ function LoginPage() {
     const navigate = useNavigate();
     const bearerToken = sessionStorage.getItem('bearer-token');
     const { isLoggedIn, setIsLoggedIn } = useAppContext();
-    
+
     //{{Insert code here}} //Task 6. If the bearerToken has a value (user already logged in), navigate to MainPage
     useEffect(() => {
         const authToken = sessionStorage.getItem('auth-token');
         if (authToken || isLoggedIn) {
             navigate('/');
         }
-    }, [navigate, isLoggedIn]);  
+    }, [navigate, isLoggedIn]);
 
     // insert code here to create handleLogin function and include console.log
     const handleLogin = async (e) => {
@@ -41,15 +41,15 @@ function LoginPage() {
         const res = await fetch(`${urlConfig.backendUrl}/api/auth/login`, {
             //{{Insert code here}} //Task 7: Set method
             method: 'POST',
-        
+
             //{{Insert code here}} //Task 8: Set headers
             headers: {
                 'content-type': 'application/json',
                 'Authorization': bearerToken ? `Bearer ${bearerToken}` : '', // Include Bearer token if available
             },
-             
+
             //{{Insert code here}} //Task 9: Set body to send user details
-            body: JSON.stringify({    
+            body: JSON.stringify({
                 email: email,
                 password: password,
             })
@@ -58,7 +58,7 @@ function LoginPage() {
         //Step 2: Access data and set user details
         // Task 1: Access data coming from fetch API
         const json = await res.json();
-        console.log('Json',json);
+        console.log('Json', json);
 
         if (json.authtoken) {
             // Task 2: Set user details
@@ -70,7 +70,7 @@ function LoginPage() {
             setIsLoggedIn(true);
 
             // Task 4: Navigate to the MainPage after logging in.
-             navigate('/');
+            navigate('/');
 
         } else {
             // Task 5: Clear input and set an error message if the password is incorrect     
@@ -82,39 +82,37 @@ function LoginPage() {
                 setIncorrect("");
             }, 2000);
         }
-	};
+    };
 
     return (
-    <div className="container mt-5">
-        <div className="row justify-content-center">
-            <div className="col-md-6 col-lg-4">
-                <div className="login-card p-4 border rounded">
-                    <h2 className="text-center mb-4 font-weight-bold">Login</h2>
+        <div className="container">
+            <div className="login-card p-4 border rounded">
 
-  		            {/* insert code here to create input elements for the variables email and  password */}
-                    <form onSubmit={handleLogin}>
-                        <div className="mb-3">
-	                        <label htmlFor="email" className="form-label">Email</label>
-	                        <input id="email" type="text" className="form-control" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                        </div>
+                <h2 className="text-center mb-4 font-weight-bold">Login</h2>
 
-                        <div className="mb-4">
-                            <label htmlFor="password" className="form-label">Password</label>
-                            <input id="password" type="password" className="form-control" placeholder="Enter your password" value={password} onChange={(e) => {setPassword(e.target.value);setIncorrect("")}}/>
-						    {/*Step 2: Task 6: Display an error message to the user.*/}
-                            <span style={{color:'red',height:'.5cm',display:'block',fontStyle:'italic',fontSize:'12px'}}>{incorrect}</span>
-                        </div>
+                {/* insert code here to create input elements for the variables email and  password */}
+                <form onSubmit={handleLogin}>
+                    <div className="mb-3">
+                        <label htmlFor="email" className="form-label">Email</label>
+                        <input id="email" type="text" className="form-control" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    </div>
 
-  		                {/* insert code here to create a button that performs the `handleLogin` function on click */}
-                        <button type="submit" className="btn btn-primary w-100 mb-3">Login</button>
-                        <p className="mt-4 text-center">
-					   
-				        </p>
-                    </form>
-                </div>
+                    <div className="mb-4">
+                        <label htmlFor="password" className="form-label">Password</label>
+                        <input id="password" type="password" className="form-control" placeholder="Enter your password" value={password} onChange={(e) => { setPassword(e.target.value); setIncorrect("") }} />
+                        {/*Step 2: Task 6: Display an error message to the user.*/}
+                        <span style={{ color: 'red', height: '.5cm', display: 'block', fontStyle: 'italic', fontSize: '12px' }}>{incorrect}</span>
+                    </div>
+
+                    {/* insert code here to create a button that performs the `handleLogin` function on click */}
+                    <button type="submit" className="btn btn-primary w-100 mb-3">Login</button>
+                    <p className="mt-4 text-center">
+
+                    </p>
+                </form>
+
             </div>
         </div>
-    </div>
     );
 }
 

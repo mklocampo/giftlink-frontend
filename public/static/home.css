@@ -83,6 +83,7 @@ h1, h2, .lead, .btn-primary {
         font-size: 2.5rem; /* Smaller font size for subheadings on mobile */
     }
     .lead {
+        display: none;
         font-size: 1.25rem; /* Smaller font size for text on mobile */
     }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {urlConfig} from '../../config';
+import { urlConfig } from '../../config';
 import './SearchPage.css';
 
 function SearchPage() {
@@ -15,7 +15,7 @@ function SearchPage() {
 
     const categories = ['Living', 'Bedroom', 'Bathroom', 'Kitchen', 'Office'];
     const conditions = ['New', 'Like New', 'Older'];
-    
+
     useEffect(() => {
         // fetch all products
         const fetchProducts = async () => {
@@ -23,12 +23,12 @@ function SearchPage() {
                 let url = `${urlConfig.backendUrl}/api/gifts`
                 console.log(url)
                 const response = await fetch(url);
-               
+
                 if (!response.ok) {
                     //something went wrong
                     throw new Error(`HTTP error; ${response.status}`)
                 }
-                const data = await response.json(); 
+                const data = await response.json();
                 setSearchResults(data);
                 setLoading(false);
             } catch (error) {
@@ -72,76 +72,71 @@ function SearchPage() {
     };
 
     return (
-        <div className="container mt-5">
-            <div>
-                <div className="searchContainer">
-                    <div class="filterSearch">
-                        <div className="filter-section mb-3 p-3 border rounded">
-                        <h5>Filters</h5>
-                        <div className="d-flex flex-column">
-                            {/* Task 3: Dynamically generate category and condition dropdown options.*/}
-                            {/* Category Dropdown */}
-	                        <label htmlFor="categorySelect">Category</label>
-	                        <select id="categorySelect" className="form-control my-1">
-		                        <option value="">All</option>
-		                        {categories.map(category => (
-		                            <option key={category} value={category}>{category}</option>
-		                        ))}
-	                        </select>
+        <div className="searchContainer">
+            <div class="filterSearch">
+                <div className="filter-section mb-3 p-3 border rounded">
+                    <h5>Filters</h5>
+                    <div className="d-flex flex-column">
+                        {/* Task 3: Dynamically generate category and condition dropdown options.*/}
+                        {/* Category Dropdown */}
+                        <label htmlFor="categorySelect">Category</label>
+                        <select id="categorySelect" className="form-control my-1">
+                            <option value="">All</option>
+                            {categories.map(category => (
+                                <option key={category} value={category}>{category}</option>
+                            ))}
+                        </select>
 
-	                        {/* Condition Dropdown */}
-	                        <label htmlFor="conditionSelect">Condition</label>
-	                        <select id="conditionSelect" className="form-control my-1">
-		                        <option value="">All</option>
-		                        {conditions.map(condition => (
-		                            <option key={condition} value={condition}>{condition}</option>
-		                        ))}
-	                        </select>
+                        {/* Condition Dropdown */}
+                        <label htmlFor="conditionSelect">Condition</label>
+                        <select id="conditionSelect" className="form-control my-1">
+                            <option value="">All</option>
+                            {conditions.map(condition => (
+                                <option key={condition} value={condition}>{condition}</option>
+                            ))}
+                        </select>
 
-                            {/* Task 4: Implement an age range slider and display the selected value. */}
-                            {/* Age Range Slider */}
-	                        <label htmlFor="ageRange">Less than {ageRange} years</label>
-	                        <input type="range" className="form-control-range" id="ageRange" min="1" max="10" value={ageRange} onChange={e => setAgeRange(e.target.value)}/>    
-                        
-                        </div>
-                        </div>
+                        {/* Task 4: Implement an age range slider and display the selected value. */}
+                        {/* Age Range Slider */}
+                        <label htmlFor="ageRange">Less than {ageRange} years</label>
+                        <input type="range" className="form-control-range" id="ageRange" min="1" max="10" value={ageRange} onChange={e => setAgeRange(e.target.value)} />
 
-                        {/* Task 7: Add text input field for search criteria*/}
-                        <input type="text" className="form-control mb-2" placeholder="Search for items..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)}></input>          
-
-                        {/* Task 8: Implement search button with onClick event to trigger search:*/}
-                        <button className="btn btn-primary" onClick={handleSearch}>Search</button>
                     </div>
-                    {/*Task 5: Display search results and handle empty results with a message. */}
-                    <div className="search-results mt-4">
-		                {searchResults.length > 0 ? (
-		                searchResults.map(product => (
-		                <div key={product.id} className="card card-search mb-3">
-			                {/* Check if product has an image and display it */}
-			                <img src={process.env.PUBLIC_URL + product.image} className="card-img-top" />
-			                <div className="card-body">
-				                <h5 className="card-title">{product.name}</h5>
-				                <p className="card-text">{product.description.slice(0, 100)}...</p>
-			                </div>
-			                <div className="card-footer">
-				                <button onClick={() => goToDetailsPage(product.id)} className="btn btn-primary">View More</button>
-			                </div>
-		                </div>
-		                ))
-		                ) : (
-                            (loading ? (
-                                 <div className="loading-search">
-                                    <img src={process.env.PUBLIC_URL + '/static/spinner.gif'} ></img>
-		                        </div>
-                            ) : (
-                                <div className="alert alert-info" role="alert">
-			                        No products found. Please revise your filters.
-		                        </div>
-                            ))  
-		                )}
-	                </div>
-            
                 </div>
+
+                {/* Task 7: Add text input field for search criteria*/}
+                <input type="text" className="form-control mb-2" placeholder="Search for items..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)}></input>
+
+                {/* Task 8: Implement search button with onClick event to trigger search:*/}
+                <button className="btn btn-primary" onClick={handleSearch}>Search</button>
+            </div>
+            {/*Task 5: Display search results and handle empty results with a message. */}
+            <div className="search-results mt-4">
+                {searchResults.length > 0 ? (
+                    searchResults.map(product => (
+                        <div key={product.id} className="card card-search mb-3">
+                            {/* Check if product has an image and display it */}
+                            <img src={process.env.PUBLIC_URL + product.image} className="card-img-top" />
+                            <div className="card-body">
+                                <h5 className="card-title">{product.name}</h5>
+                                <p className="card-text">{product.description.slice(0, 100)}...</p>
+                            </div>
+                            <div className="card-footer">
+                                <button onClick={() => goToDetailsPage(product.id)} className="btn btn-primary">View More</button>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    (loading ? (
+                        <div className="loading-search">
+                            <img src={process.env.PUBLIC_URL + '/static/spinner.gif'} ></img>
+                        </div>
+                    ) : (
+                        <div className="alert alert-info" role="alert">
+                            No products found. Please revise your filters.
+                        </div>
+                    ))
+                )}
             </div>
         </div>
     );

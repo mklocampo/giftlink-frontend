@@ -82,7 +82,7 @@ function DetailsPage() {
     if (!gift) return <div>Gift not found</div>;
 
 return (
-        <div className="container mt-5">
+        <div className="container-detailsPage">
             <button className="btn btn-secondary mb-3" onClick={handleBackClick}>Back</button>
             <div className="card product-details-card">
                 <div className="card-header text-white">
