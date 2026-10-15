@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/giftlink-frontend/static/css/main.521969c4.css",
+    "main.js": "/giftlink-frontend/static/js/main.c6c6dca2.js",
+    "index.html": "/giftlink-frontend/index.html",
+    "main.521969c4.css.map": "/giftlink-frontend/static/css/main.521969c4.css.map",
+    "main.c6c6dca2.js.map": "/giftlink-frontend/static/js/main.c6c6dca2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.521969c4.css",
+    "static/js/main.c6c6dca2.js"
+  ]
+}
